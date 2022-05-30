@@ -1,0 +1,198 @@
+#Installation
+PS F:\WebSecurity\Tools-Used> docker pull tleemcjr/metasploitable2
+Using default tag: latest
+latest: Pulling from tleemcjr/metasploitable2
+7aee18c98c59: Pull complete
+da9129f8f7ad: Pull complete
+b1494b474174: Pull complete
+84da87a98ea3: Pull complete
+47fb2fcd8445: Pull complete
+8b6e3bfdb228: Pull complete
+36d703894057: Pull complete
+43cf3a9e2a40: Pull complete
+Digest: sha256:e559450b37dccc1909eafa2df5b20bb052e1bd801246f4539a3ef183d5f7288a
+Status: Downloaded newer image for tleemcjr/metasploitable2:latest
+docker.io/tleemcjr/metasploitable2:latest
+PS F:\WebSecurity\Tools-Used> docker run --name container-name -it tleemcjr/metasploitable2:latest sh
+ -c "/bin/services.sh && bash"
+ * Starting web server apache2                                                                       apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.3 for ServerName
+                                                                                              [ OK ]
+ * Starting deferred execution scheduler atd                                                  [ OK ]
+ * Starting periodic command scheduler crond                                                  [ OK ]
+Starting distccd
+ * Starting MySQL database server mysqld                                                      [ OK ]
+ * Checking for corrupt, not cleanly closed and upgrade needing tables.
+ * Configuring network interfaces...                                                          [ OK ]
+ * Starting portmap daemon...                                                                 [ OK ]
+ * Starting Postfix Mail Transport Agent postfix                                              [ OK ]
+ * Starting PostgreSQL 8.3 database server                                                    [ OK ]
+ * Starting ftp server proftpd                                                                [ OK ]
+Starting Samba daemons: nmbd smbd.
+Starting network management services: snmpd.
+ * Starting OpenBSD Secure Shell server sshd                                                         snmpd[689]: error finding row index in _ifXTable_container_row_restore
+
+                                                                                              [ OK ]
+ * Starting system log daemon...                                                              [ OK ]
+ * Starting Tomcat servlet engine tomcat5.5                                                   [ OK ]
+ * Starting internet superserver xinetd                                                       [ OK ]
+ * Doing Wacom setup...                                                                       [ OK ]
+ * Running local boot scripts (/etc/rc.local)                                                 [ OK ]
+nohup: nohup: appending output to `nohup.out'
+appending output to `nohup.out'
+
+#Commands on Metasploitable-2
+
+root@b0da1f362c0b:/# ifconfig
+eth0      Link encap:Ethernet  HWaddr 02:42:ac:11:00:03
+          inet addr:172.17.0.3  Bcast:172.17.255.255  Mask:255.255.0.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:36 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:32 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3570 (3.4 KB)  TX bytes:3320 (3.2 KB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:29 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:29 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:14421 (14.0 KB)  TX bytes:14421 (14.0 KB)
+
+root@321a9866fd8c:/# ifconfig
+eth0      Link encap:Ethernet  HWaddr 02:42:ac:11:00:02
+          inet addr:172.17.0.2  Bcast:172.17.255.255  Mask:255.255.0.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:94 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:84 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:13429 (13.1 KB)  TX bytes:12557 (12.2 KB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:318 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:318 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:156653 (152.9 KB)  TX bytes:156653 (152.9 KB)
+
+root@321a9866fd8c:/# nmap -p)-65535 172.17.0.2
+bash: syntax error near unexpected token `)'
+root@321a9866fd8c:/# nmap -p0-65535 172.17.0.2
+
+Starting Nmap 4.53 ( http://insecure.org ) at 2022-05-30 05:26 EDT
+Interesting ports on 321a9866fd8c (172.17.0.2):
+Not shown: 65511 closed ports
+PORT      STATE SERVICE
+21/tcp    open  ftp
+22/tcp    open  ssh
+23/tcp    open  telnet
+25/tcp    open  smtp
+80/tcp    open  http
+111/tcp   open  rpcbind
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+512/tcp   open  exec
+513/tcp   open  login
+514/tcp   open  shell
+1099/tcp  open  unknown
+1524/tcp  open  ingreslock
+2121/tcp  open  ccproxy-ftp
+3306/tcp  open  mysql
+3632/tcp  open  distccd
+5432/tcp  open  postgres
+5900/tcp  open  vnc
+6000/tcp  open  X11
+6667/tcp  open  irc
+6697/tcp  open  unknown
+8009/tcp  open  ajp13
+8180/tcp  open  unknown
+8787/tcp  open  unknown
+35137/tcp open  unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 1.120 seconds
+root@321a9866fd8c:/# rlogin -l root 172.17.0.2
+Last login: Mon May 30 04:16:21 EDT 2022 from :0.0 on pts/1
+Linux 32554753bfe5 4.13.0-21-generic #24-Ubuntu SMP Mon Dec 18 17:29:16 UTC 2017 x86_64
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+To access official Ubuntu documentation, please visit:
+http://help.ubuntu.com/
+You have mail.
+root@321a9866fd8c:~# rpcinfo -p 192.168.99.131
+rpcinfo: can't contact portmapper: RPC: Remote system error - Connection refused
+root@321a9866fd8c:~# rpcinfo -p 172.17.0.2
+   program vers proto   port
+    100000    2   tcp    111  portmapper
+    100003    2   udp   2049  nfs
+    100003    3   udp   2049  nfs
+    100003    4   udp   2049  nfs
+    100021    1   udp  58022  nlockmgr
+    100021    3   udp  58022  nlockmgr
+    100021    4   udp  58022  nlockmgr
+    100003    2   tcp   2049  nfs
+    100003    3   tcp   2049  nfs
+    100003    4   tcp   2049  nfs
+    100021    1   tcp  33414  nlockmgr
+    100021    3   tcp  33414  nlockmgr
+    100021    4   tcp  33414  nlockmgr
+    100005    1   udp  58275  mountd
+    100005    1   tcp  50419  mountd
+    100005    2   udp  58275  mountd
+    100005    2   tcp  50419  mountd
+    100005    3   udp  58275  mountd
+    100005    3   tcp  50419  mountd
+    100024    1   udp  49024  status
+    100024    1   tcp  42939  status
+root@321a9866fd8c:~# showmount -e 172.17.0.2
+root@321a9866fd8c:~# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+cc:26:b1:7d:34:38:6e:26:09:67:4d:99:4b:28:63:10 root@321a9866fd8c
+root@321a9866fd8c:~# mkdir /tmp/r00t
+root@321a9866fd8c:~# mount -t nfs 172.17.0.2:/ /tmp/r00t/
+mount.nfs: Operation not permitted
+root@321a9866fd8c:~# telnet 172.17.0.2
+Trying 172.17.0.2...
+Connected to 172.17.0.2.
+Escape character is '^]'.
+                _                  _       _ _        _     _      ____
+ _ __ ___   ___| |_ __ _ ___ _ __ | | ___ (_) |_ __ _| |__ | | ___|___ \
+| '_ ` _ \ / _ \ __/ _` / __| '_ \| |/ _ \| | __/ _` | '_ \| |/ _ \ __) |
+| | | | | |  __/ || (_| \__ \ |_) | | (_) | | || (_| | |_) | |  __// __/
+|_| |_| |_|\___|\__\__,_|___/ .__/|_|\___/|_|\__\__,_|_.__/|_|\___|_____|
+                            |_|
+
+
+Warning: Never expose this VM to an untrusted network!
+
+Contact: msfdev[at]metasploit.com
+
+Login with msfadmin/msfadmin to get started
+
+321a9866fd8c login: msfadmin
+Password:
+Last login: Sun Jul 16 21:04:01 EDT 2017 on tty1
+Linux 32554753bfe5 4.13.0-21-generic #24-Ubuntu SMP Mon Dec 18 17:29:16 UTC 2017 x86_64
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+To access official Ubuntu documentation, please visit:
+http://help.ubuntu.com/
+No mail.
